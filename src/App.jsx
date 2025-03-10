@@ -9,6 +9,7 @@ import { Provider } from 'react-redux'
 import appStore from './utils/appStore'
 import Cart from './component/Cart'
 import Navbar from './component/Navbar'
+import PlaceOrder from './component/PlaceOrder'
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path= "/restaurant/:resid" element= {<ResaturantMenu />} /> 
 
           </Route>

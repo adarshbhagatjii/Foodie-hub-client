@@ -7,6 +7,7 @@ import { BASE_URL } from '../utils/constants';
 const Navbar = ({user, setUser}) => {
   
   const cartItems = useSelector((store) => store.cart.items);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
   const navigate = useNavigate();
 
   
@@ -50,7 +51,7 @@ const Navbar = ({user, setUser}) => {
             className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
             <div className="card-body">
               <span className="text-lg font-bold">{cartItems.length} Items</span>
-              <span className="text-info">Subtotal: $999</span>
+              <span className="text-info">Subtotal: {totalPrice.toFixed(2)}</span>
               <div className="card-actions">
                <Link to='/cart'> <button className="btn btn-primary btn-block" >View cart</button> </Link>
               </div>

@@ -1,20 +1,26 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, removeItem } from '../utils/cartSlice';
+import { useNavigate } from 'react-router';
 
 const Cart = () => {
-    const cartItems = useSelector((store) => store.cart.items); // Ensure correct key name
+    const cartItems = useSelector((store) => store.cart.items);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
 
     const handleClearCart = () => {
         dispatch(clearCart());
     };
+    const handelProceed= ()=>{
+        navigate('/placeorder');
+    }
 
     const handleRemoveItem = (id) => {
         dispatch(removeItem(id)); // Pass item ID when removing
     };
     // Calculate total price
     const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+    console.log(cartItems)
 
     return (
         <div className="text-center m-4 p-4">
@@ -57,11 +63,11 @@ const Cart = () => {
                         </div>
                     ))}
 
-                 {totalPrice!==0 &&   <div className="mt-4 p-4 bg-gray-700 text-white rounded-lg">
+                 {cartItems?.length !== 0 &&   <div className="mt-4 p-4 bg-gray-700 text-white rounded-lg">
                         <h2 className="text-xl font-bold">Total: ${totalPrice.toFixed(2)}</h2>
                         <button
                             className="bg-blue-500 text-white font-semibold mt-3 px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
-                            onClick={() => alert('Proceeding to checkout...')}
+                            onClick={handelProceed}
                         >
                             Proceed to Checkout
                         </button>
