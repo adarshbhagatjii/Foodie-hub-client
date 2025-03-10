@@ -7,7 +7,7 @@ import { BASE_URL } from '../utils/constants';
 const Navbar = ({user, setUser}) => {
   
   const cartItems = useSelector((store) => store.cart.items);
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const navigate = useNavigate();
 
   
@@ -67,7 +67,7 @@ const Navbar = ({user, setUser}) => {
         <div className="dropdown dropdown-end">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img alt="User Avatar" src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              <img alt="User Avatar" src={user?.imageUrl || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" }/>
             </div>
           </div>
           <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">

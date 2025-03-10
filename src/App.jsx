@@ -10,6 +10,7 @@ import appStore from './utils/appStore'
 import Cart from './component/Cart'
 import Navbar from './component/Navbar'
 import PlaceOrder from './component/PlaceOrder'
+import ForgotPassword from './component/ForgotPassword'
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
             <Route index  element={<Home />} />
             <Route path="/login" element={<Login setUser={setUser} />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/forgotPassword" element={<ForgotPassword />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path= "/restaurant/:resid" element= {<ResaturantMenu />} /> 

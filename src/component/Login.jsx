@@ -33,6 +33,7 @@ const Login = ({setUser}) => {
           name: res.data.user.name,
           emailId: res.data.user.emailId,
           role: res.data.user.role,
+          imageUrl:res.data.user.imageUrl,
         };
 
         // ✅ Store in localStorage
@@ -41,7 +42,7 @@ const Login = ({setUser}) => {
 
         setUser(userData);
 
-        console.log("Login Successful:",userData);
+        
 
         navigate("/"); // ✅ Redirect user to home page
       }
@@ -84,7 +85,7 @@ const Login = ({setUser}) => {
                   Password
                 </label>
                 <div className="text-sm">
-                  <Link to='/forgotpassword' className="font-semibold text-indigo-600 hover:text-indigo-500">
+                  <Link to='/forgotPassword' className="font-semibold text-indigo-600 hover:text-indigo-500">
                     Forgot password?
                   </Link>
                 </div>

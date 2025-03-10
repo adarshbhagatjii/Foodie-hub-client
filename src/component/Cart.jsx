@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { clearCart, removeItem } from '../utils/cartSlice';
+import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../utils/cartSlice';
 import { useNavigate } from 'react-router';
 
 const Cart = () => {
@@ -7,20 +7,28 @@ const Cart = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-
     const handleClearCart = () => {
         dispatch(clearCart());
     };
-    const handelProceed= ()=>{
+
+    const handleIncreaseQuantity = (id) => {
+        dispatch(increaseQuantity(id));
+    };
+
+    const handleDecreaseQuantity = (id) => {
+        dispatch(decreaseQuantity(id));
+    };
+
+    const handelProceed = () => {
         navigate('/placeorder');
-    }
+    };
 
     const handleRemoveItem = (id) => {
-        dispatch(removeItem(id)); // Pass item ID when removing
+        dispatch(removeItem(id));
     };
-    // Calculate total price
-    const totalPrice = cartItems.reduce((sum, item) => sum + item.price, 0);
-    console.log(cartItems)
+
+    // Calculate total price based on quantity
+    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
     return (
         <div className="text-center m-4 p-4">
@@ -50,7 +58,24 @@ const Cart = () => {
                                 <h3 className="text-lg font-semibold">
                                     {item.name} <span className="text-green-600 font-bold">${item.price.toFixed(2)}</span>
                                 </h3>
-                                <p className="text-gray-600">{item.description}</p>
+                                <p className="text-gray-300">{item.description}</p>
+
+                                {/* Quantity Controls */}
+                                <div className="flex items-center gap-2 mt-2">
+                                    <button
+                                        className="bg-red-500 text-white px-2 py-1 rounded-md"
+                                        onClick={() => handleDecreaseQuantity(item._id)}
+                                    >
+                                        -
+                                    </button>
+                                    <span className="text-white font-semibold">{item.quantity}</span>
+                                    <button
+                                        className="bg-blue-500 text-white px-2 py-1 rounded-md"
+                                        onClick={() => handleIncreaseQuantity(item._id)}
+                                    >
+                                        +
+                                    </button>
+                                </div>
                             </div>
 
                             {/* Remove Button */}
@@ -63,15 +88,17 @@ const Cart = () => {
                         </div>
                     ))}
 
-                 {cartItems?.length !== 0 &&   <div className="mt-4 p-4 bg-gray-700 text-white rounded-lg">
-                        <h2 className="text-xl font-bold">Total: ${totalPrice.toFixed(2)}</h2>
-                        <button
-                            className="bg-blue-500 text-white font-semibold mt-3 px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
-                            onClick={handelProceed}
-                        >
-                            Proceed to Checkout
-                        </button>
-                    </div>}
+                    {cartItems?.length !== 0 && (
+                        <div className="mt-4 p-4 bg-gray-700 text-white rounded-lg">
+                            <h2 className="text-xl font-bold">Total: ${totalPrice.toFixed(2)}</h2>
+                            <button
+                                className="bg-blue-500 text-white font-semibold mt-3 px-6 py-3 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out"
+                                onClick={handelProceed}
+                            >
+                                Proceed to Checkout
+                            </button>
+                        </div>
+                    )}
                 </div>
             </div>
         </div>

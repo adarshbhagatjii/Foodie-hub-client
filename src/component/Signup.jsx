@@ -1,26 +1,28 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router";
 import { BASE_URL } from "../utils/constants";
+import { addUser } from "../utils/userSlice";
+
 
 const Signup = () => {
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [showOtpInput, setShowOtpInput] = useState(false);
 
- 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   // Handle Signup and OTP Sending
   const handleSignup = async () => {
     try {
       await axios.post(
-        BASE_URL + "/signup",
-        { firstName, lastName, email, password },
+        BASE_URL+ "/signup",
+        { name, emailId: email, password },
         { withCredentials: true }
       );
       alert("OTP sent to your email. Please verify.");
@@ -36,11 +38,11 @@ const Signup = () => {
     try {
       const res = await axios.post(
         BASE_URL + "/verify",
-        { email, otp },
+        { emailId: email, otp },
         { withCredentials: true }
       );
-      dispatch(addUser(res.data.data)); // Add user to redux store
-      navigate("/profile"); // Redirect after successful verification
+      dispatch(addUser(res.data.data)); 
+      navigate("/"); 
     } catch (err) {
       setError(err?.response?.data || "Invalid OTP");
       console.error(err);
@@ -63,23 +65,13 @@ const Signup = () => {
                 </label>
                 <input
                   type="text"
-                  value={firstName}
-                  onChange={(e) => setFirstName(e.target.value)}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
                 />
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-500">
-                  Last Name
-                </label>
-                <input
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
-                />
-              </div>
+             
 
               <div>
                 <label className="block text-sm font-medium text-gray-500">
@@ -154,4 +146,3 @@ const Signup = () => {
 };
 
 export default Signup;
-

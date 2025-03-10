@@ -26,7 +26,7 @@ const Home = () => {
                 withCredentials: true
             });
 
-            console.log("API Response:", res.data);
+           
 
             // Extract restaurants from "data" property
             setListOfRestaurant(Array.isArray(res.data.data) ? res.data.data : []);

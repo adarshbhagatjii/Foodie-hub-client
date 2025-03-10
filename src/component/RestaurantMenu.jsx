@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { BASE_URL } from '../utils/constants';
 import { useParams } from 'react-router';
-import { useDispatch } from 'react-redux';
-import { addItem } from '../utils/cartSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addItem, decreaseQuantity, increaseQuantity } from '../utils/cartSlice';
 
 
 const RestaurantMenu = () => {
@@ -11,14 +11,23 @@ const RestaurantMenu = () => {
     const [categories, setCategories] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState({});
     const [RestaurantName, setRestaurantName] = useState("");
+    const cartItems = useSelector(state => state.cart.items);
     
 
     const { resid } = useParams();
     const dispatch = useDispatch();
 
-    const handleClick = (item) => {
+    const handleAddClick= (item) => {
         dispatch(addItem(item));
     };
+    const handleIncrease = (itemId) => {
+        dispatch(increaseQuantity(itemId));
+    };
+
+    const handleDecrease = (itemId) => {
+        dispatch(decreaseQuantity(itemId));
+    };
+
 
     const fetchData = async () => {
         try {
@@ -60,6 +69,11 @@ const RestaurantMenu = () => {
             [category]: !prevState[category]
         }));
     };
+
+    const getItemQuantity = (itemId) => {
+        const item = cartItems.find(i => i._id === itemId);
+        return item ? item.quantity : 0;
+    };
     
 
     return (
@@ -97,12 +111,20 @@ const RestaurantMenu = () => {
                                     </div>
 
                                     {/* Add to Cart Button */}
-                                    <button 
-                                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition duration-300 ease-in-out cursor-pointer"
-                                        onClick={() => handleClick(item)}
-                                    >
-                                        Add +
-                                    </button>
+                                    {getItemQuantity(item._id) > 0 ? (
+                                        <div className="flex items-center gap-2">
+                                            <button onClick={() => handleDecrease(item._id)} className="bg-red-500 text-white px-2 py-1 rounded">-</button>
+                                            <span>{getItemQuantity(item._id)}</span>
+                                            <button onClick={() => handleIncrease(item._id)} className="bg-green-500 text-white px-2 py-1 rounded">+</button>
+                                        </div>
+                                    ) : (
+                                        <button
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                                            onClick={() => handleAddClick(item)}
+                                        >
+                                            Add +
+                                        </button>
+                                    )}
                                 </div>
                             ))}
                         </div>
