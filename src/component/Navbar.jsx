@@ -213,6 +213,7 @@ const Navbar = ({ user, setUser }) => {
           
           <div>
             {user ? (
+              <>
               <button
                 className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50"
                 onClick={() => {
@@ -222,6 +223,14 @@ const Navbar = ({ user, setUser }) => {
               >
                 <i className="fas fa-sign-in-alt mr-2"></i> LogOut
               </button>
+              <Link
+              className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+              to="/orderHistory"
+              onClick={() => setIsUserMenuOpen(false)}
+            >
+              <i class="fa-solid fa-clock-rotate-left mr-2"></i> Orders
+            </Link>
+            </>
             ) : (
               <Link
                 className="block px-4 py-2 text-gray-700 hover:bg-orange-50"
