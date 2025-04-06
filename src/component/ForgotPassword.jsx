@@ -8,7 +8,7 @@ const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
   const [newPassword, setNewPassword] = useState("");
-  const [step, setStep] = useState(1); // 1: Enter email, 2: Enter OTP & new password
+  const [step, setStep] = useState(1); 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
@@ -37,9 +37,9 @@ const ForgotPassword = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-      <div className="w-96 p-8 bg-gray-800 rounded-xl shadow-xl">
-        <h2 className="text-center text-2xl font-bold text-indigo-600">
+    <div className="flex flex-col items-center justify-center min-h-screen">
+      <div className="w-96 p-8 bg-orange-100 rounded-xl shadow-xl">
+        <h2 className="text-center text-2xl font-bold text-orange-600">
           {step === 1 ? "Forgot Password" : "Reset Password"}
         </h2>
 
@@ -54,36 +54,36 @@ const ForgotPassword = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+              className="w-full mt-2 rounded-md bg-orange-200 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
             />
             <button
               onClick={handleSendOtp}
-              className="w-full mt-4 bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-500"
+              className="w-full mt-4 bg-orange-600 text-white py-2 rounded-md hover:bg-orange-500"
             >
               Send OTP
             </button>
           </div>
         ) : (
           <div className="mt-6 space-y-4">
-            <label className="block text-sm font-medium text-gray-500">Enter OTP</label>
+            <label className="block text-sm font-medium text-orange-500">Enter OTP</label>
             <input
               type="text"
               value={otp}
               onChange={(e) => setOtp(e.target.value)}
-              className="w-full rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+              className="w-full rounded-md bg-orange-200 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
             />
 
-            <label className="block text-sm font-medium text-gray-500">New Password</label>
+            <label className="block text-sm font-medium text-orange-500">New Password</label>
             <input
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+              className="w-full rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
             />
 
             <button
               onClick={handleResetPassword}
-              className="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-500"
+              className="w-full bg-orange-600 text-white py-2 rounded-md hover:bg-orange-500"
             >
               Reset Password
             </button>

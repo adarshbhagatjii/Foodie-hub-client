@@ -2,9 +2,9 @@ import React from 'react';
 
 const RestaurantCard = ({ resdata }) => {
   return (
-    <div className="w-[90vw] sm:w-[45vw] md:w-[30vw] lg:w-[18vw] bg-gray-700 p-4 flex flex-col items-center mx-3 pb-8 mt-5 rounded-lg shadow-md  transform transition duration-300 hover:scale-105 hover:shadow-xl">
+    <div className="bg-white flex flex-col justify-center items-center rounded-lg shadow-2xl overflow-hidden text-gray-800 ">
       {/* Image Container */}
-      <div className="w-full h-40 bg-gray-800 rounded-md overflow-hidden">
+      <div className="w-full h-48 object-cover">
         <img
           className="w-full h-full object-cover"
           src={resdata.imageUrl}

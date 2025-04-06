@@ -1,14 +1,45 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+
 import { Link, useNavigate } from 'react-router';
 import { BASE_URL } from '../utils/constants';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../utils/cartSlice';
+
 
 const Navbar = ({user, setUser}) => {
+
+const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+const [searchQuery, setSearchQuery] = useState('');
+ const [showCart, setShowCart] = useState(false)
+ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+const dispatch = useDispatch();
+
   
   const cartItems = useSelector((store) => store.cart.items);
-  const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
   const navigate = useNavigate();
+   const handleClearCart = () => {
+          dispatch(clearCart());
+      };
+  
+      const handleIncreaseQuantity = (id) => {
+          dispatch(increaseQuantity(id));
+      };
+  
+      const handleDecreaseQuantity = (id) => {
+          dispatch(decreaseQuantity(id));
+      };
+  
+      const handelProceed = () => {
+          navigate('/placeorder');
+      };
+  
+      const handleRemoveItem = (id) => {
+          dispatch(removeItem(id));
+      };
+  
+      // Calculate total price based on quantity
+      const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
 
   
 
@@ -29,68 +60,283 @@ const Navbar = ({user, setUser}) => {
   
 
   return (
-    <div className="navbar bg-silver shadow-sm">
-      <div className="flex-1">
-        <Link className="btn btn-ghost text-xl" to='/'>My Restro</Link>
-      </div>
-      <div className="flex-none">
-        {user && (
-          <>
-          <div className="text-gray-700 font-semibold mr-4">
-            Welcome, {user?.name || "Guest"}
+    <div className="fixed top-0 left-0 right-0 bg-orange-100 drop-shadow-lg z-50">
+      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
+        {/* Logo */}
+        <div className="flex items-center space-x-4">
+          <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-orange-600">
+            FoodieHub
+          </Link>
+        </div>
+
+        {/* Hamburger for mobile */}
+        <div className="md:hidden">
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="text-orange-800 focus:outline-none"
+          >
+            <i className="fas fa-bars text-2xl"></i>
+          </button>
+        </div>
+
+        {/* Search (Desktop only) */}
+        <div className="flex-1 max-w-xl mx-4 hidden md:block">
+          <div className="relative">
+            <input
+              type="text"
+              className="w-full px-4 py-2 rounded-lg border border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              placeholder="Search for restaurants or dishes..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <i className="fas fa-search absolute right-3 top-3 text-orange-400"></i>
           </div>
-          <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-            <div className="indicator">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"> <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /> </svg>
-              <span className="badge badge-sm indicator-item">{cartItems.length}</span>
-            </div>
-          </div>
-          <div
-            tabIndex={0}
-            className="card card-compact dropdown-content bg-base-100 z-1 mt-3 w-52 shadow">
-            <div className="card-body">
-              <span className="text-lg font-bold">{cartItems.length} Items</span>
-              <span className="text-info">Subtotal: {totalPrice.toFixed(2)}</span>
-              <div className="card-actions">
-               <Link to='/cart'> <button className="btn btn-primary btn-block" >View cart</button> </Link>
+        </div>
+
+        {/* Desktop menu */}
+        <div className="hidden md:flex items-center space-x-6">
+          {/* User Menu */}
+          <div className="relative user-menu">
+            <button
+              className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 cursor-pointer"
+              onClick={(e) => {
+                e.stopPropagation();
+                setIsUserMenuOpen(!isUserMenuOpen);
+              }}
+            >
+              <i className="fas fa-user"></i>
+              <span>Account</span>
+              <i
+                className={`fas fa-chevron-down ml-2 transition-transform ${
+                  isUserMenuOpen ? "rotate-180" : ""
+                }`}
+              ></i>
+            </button>
+
+            {isUserMenuOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+                {user ? (
+                    <>
+                  <button
+                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                    onClick={() => {
+                      handleLogOut();
+                      setIsUserMenuOpen(false);
+                    }}
+                  >
+                    <i className="fas fa-sign-in-alt mr-2"></i> LogOut
+                  </button>
+                  <Link
+                    className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                    to="/orderHistory"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <i class="fa-solid fa-clock-rotate-left mr-2"></i> Orders
+                  </Link>
+                   
+                 </>
+
+                ) : (
+                  <Link
+                    className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                    to="/login"
+                    onClick={() => setIsUserMenuOpen(false)}
+                  >
+                    <i className="fas fa-sign-in-alt mr-2"></i> Login
+                  </Link>
+                )}
+
+                {user?.role === "admin" && (
+                  <Link
+                    to="/admin/dashboard"
+                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                  >
+                    <i className="fa-solid fa-gauge mr-2"></i> Admin Dashboard
+                  </Link>
+                )}
               </div>
-            </div>
+            )}
           </div>
 
-        </div>
-        </>
-        )}
-         
-
-        {/* Profile Dropdown */}
-        <div className="dropdown dropdown-end">
-          <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
-              <img alt="User Avatar" src={user?.imageUrl || "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" }/>
+          {/* Cart */}
+          {user && (
+            <div className="relative user-menu">
+              <button
+                className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 cursor-pointer relative"
+                onClick={() => setShowCart(!showCart)}
+              >
+                <i className="fas fa-shopping-cart"></i>
+                <span>Cart</span>
+                {cartItems.length > 0 && (
+                  <span className="absolute -top-2 -right-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                    {cartItems.length}
+                  </span>
+                )}
+              </button>
             </div>
-          </div>
-          <ul tabIndex={0} className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-            
-
-            {/* Show admin links if user.role is "admin" */}
-            {user?.role === "admin" && (
-              <>
-                <li><Link to="/admin/dashboard">Admin Dashboard</Link></li>
-                <li><Link to="/admin/orders">Manage Orders</Link></li>
-              </>
-            )}
-
-            {user ? (
-              <li><button onClick={handleLogOut}>Logout</button></li>
-            ) : (
-              <li><Link to='/login'>Login</Link></li>
-            )}
-          </ul>
+          )}
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-white px-4 pb-4 space-y-4">
+          <div className="relative">
+            <input
+              type="text"
+              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              placeholder="Search..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <i className="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+          </div>
+
+          {/* Account */}
+          <div>
+            {user ? (
+              <button
+                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50"
+                onClick={() => {
+                  handleLogOut();
+                  setIsMobileMenuOpen(false);
+                }}
+              >
+                <i className="fas fa-sign-in-alt mr-2"></i> LogOut
+              </button>
+            ) : (
+              <Link
+                className="block px-4 py-2 text-gray-700 hover:bg-orange-50"
+                to="/login"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                <i className="fas fa-sign-in-alt mr-2"></i> Login
+              </Link>
+            )}
+            {user?.role === "admin" && (
+              <Link
+                to="/admin/dashboard"
+                className="block px-4 py-2 text-gray-700 hover:bg-orange-50"
+              >
+                <i className="fa-solid fa-gauge mr-2"></i> Admin Dashboard
+              </Link>
+            )}
+          </div>
+
+          {/* Cart */}
+          {user && (
+            <button
+              className="flex items-center space-x-2 text-gray-600 hover:text-orange-500"
+              onClick={() => {
+                setShowCart(!showCart);
+                setIsMobileMenuOpen(false);
+              }}
+            >
+              <i className="fas fa-shopping-cart"></i>
+              <span>Cart</span>
+              {cartItems.length > 0 && (
+                <span className="ml-2 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
+            </button>
+          )}
+        </div>
+      )}
+
+      {/* Cart Dropdown */}
+      {showCart && (
+        <div className="absolute right-0  w-11/12 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col z-50 max-h-[90vh] overflow-y-auto">
+          {/* Cart Header */}
+          <div className="p-6 border-b flex justify-between items-center">
+            <h2 className="text-2xl font-bold text-gray-800">Shopping Cart</h2>
+            <button
+              className="text-gray-500 hover:text-gray-700"
+              onClick={() => setShowCart(false)}
+            >
+              <i className="fas fa-times"></i>
+            </button>
+          </div>
+
+          {/* Cart Items */}
+          <div className="flex-1 overflow-y-auto p-6">
+            {cartItems.length === 0 ? (
+              <div className="text-center text-gray-500 mt-8">
+                Your cart is empty
+              </div>
+            ) : (
+              <div className="flex flex-col space-y-6">
+                {cartItems.map((item) => (
+                  <div key={item._id} className="flex items-center space-x-4">
+                    <img
+                      src={item.imageUrl}
+                      alt={item.name}
+                      className="w-20 h-20 rounded-lg object-cover"
+                    />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-orange-500">
+                        {item.name}
+                      </h3>
+                      <p className="text-orange-500">${item.price}</p>
+                      <div className="flex items-center space-x-2 mt-2">
+                        <button
+                          className="w-8 h-8 flex items-center justify-center bg-gray-100 text-orange-500 hover:bg-gray-200 cursor-pointer"
+                          onClick={() => handleDecreaseQuantity(item._id)}
+                        >
+                          <i className="fas fa-minus"></i>
+                        </button>
+                        <span className="text-orange-500 w-8 text-center">
+                          {item.quantity}
+                        </span>
+                        <button
+                          className="w-8 h-8 flex items-center justify-center bg-gray-100 text-orange-500 hover:bg-gray-200 cursor-pointer"
+                          onClick={() => handleIncreaseQuantity(item._id)}
+                        >
+                          <i className="fas fa-plus"></i>
+                        </button>
+                      </div>
+                    </div>
+                    <button
+                      className="text-orange-500 hover:text-red-500 cursor-pointer"
+                      onClick={() => handleRemoveItem(item._id)}
+                    >
+                      <i className="fas fa-trash"></i>
+                    </button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
+          {/* Checkout Section */}
+          {cartItems?.length !== 0 && (
+            <div className="p-6 mb-4 bg-white">
+              <h2 className="text-orange-500 text-xl font-bold">
+                Total: ${totalPrice.toFixed(2)}
+              </h2>
+              <button
+                className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors"
+                onClick={() => {
+                  setShowCart(!showCart);
+                  handelProceed();
+                }}
+              >
+                Proceed to Checkout
+              </button>
+            </div>
+          )}
+        </div>
+      )}
     </div>
+  
+  
+  
   );
+
 };
 
 export default Navbar;
+
+
+
+

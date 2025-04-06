@@ -77,15 +77,15 @@ const RestaurantMenu = () => {
     
 
     return (
-        <div className="p-6 max-w-4xl mx-auto">
+        <div className="p-6 max-w-4xl mx-auto h-screen">
             <h1 className="text-3xl font-bold text-center mb-6">{RestaurantName}</h1>
             <h1 className="text-3xl font-bold text-center mb-6"> Menu Items</h1>
 
             {categories.map(category => (
-                <div key={category} className="bg-gray-600 shadow-lg rounded-lg mb-4">
+                <div key={category} className="bg-gray-300 shadow-lg rounded-lg mb-4">
                     {/* Category Header */}
                     <div 
-                        className="flex justify-between items-center px-6 py-4 bg-gray-600 cursor-pointer rounded-t-lg" 
+                        className="flex justify-between items-center px-6 py-4 bg-gray-300 cursor-pointer text-gray-800 rounded-t-lg" 
                         onClick={() => toggleCategory(category)}
                     >
                         <h2 className="text-xl font-semibold">{category} ({menu.filter(item => item.category === category).length})</h2>
@@ -96,7 +96,7 @@ const RestaurantMenu = () => {
                     {selectedCategory[category] && (
                         <div className="p-4 space-y-4">
                             {menu.filter(item => item.category === category).map(item => (
-                                <div key={item._id} className="flex items-center gap-4 border-b pb-4">
+                                <div key={item._id} className="flex items-center gap-4 border-b text-gray-800 pb-4">
                                     {/* Item Image */}
                                     <img 
                                         src={item.imageUrl} 
@@ -107,7 +107,7 @@ const RestaurantMenu = () => {
                                     {/* Item Details */}
                                     <div className="flex-1">
                                         <h3 className="text-lg font-semibold">{item.name} <span className="text-green-600 font-bold">${item.price.toFixed(2)}</span></h3>
-                                        <p className="text-gray-300">{item.description}</p>
+                                        <p className="text-gray-800">{item.description}</p>
                                     </div>
 
                                     {/* Add to Cart Button */}
@@ -119,7 +119,7 @@ const RestaurantMenu = () => {
                                         </div>
                                     ) : (
                                         <button
-                                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600"
+                                            className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
                                             onClick={() => handleAddClick(item)}
                                         >
                                             Add +

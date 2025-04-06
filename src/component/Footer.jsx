@@ -2,9 +2,9 @@ import React from 'react';
 
 const Footer = () => {
   return (
-    <footer className="footer footer-center bg-base-300 text-base-content p-4 fixed bottom-0">
+    <footer className="footer footer-center bg-orange-100 text-gray-900 p-4 ">
   <aside>
-    <p>Copyright © {new Date().getFullYear()} - All right reserved by Dev Tinder Industries Ltd</p>
+    <p>Copyright © {new Date().getFullYear()} - All right reserved by Foodie Hub Industries Ltd</p>
   </aside>
 </footer>
 

@@ -50,9 +50,9 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-900">
-      <div className="w-96 p-8 bg-gray-800 rounded-xl shadow-xl">
-        <h2 className="text-center text-2xl font-bold text-indigo-600">
+    <div className="flex flex-col items-center justify-center min-h-screen mt-18">
+      <div className="w-96 p-8 bg-orange-100 rounded-xl shadow-xl">
+        <h2 className="text-center text-2xl font-bold text-orange-600">
           {showOtpInput ? "Verify OTP" : "Create an Account"}
         </h2>
 
@@ -60,21 +60,21 @@ const Signup = () => {
           {!showOtpInput ? (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-500">
-                  First Name
+                <label className="block text-sm font-medium text-orange-500">
+                  Full Name
                 </label>
                 <input
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+                  className="w-full mt-2 rounded-md bg-orange-200 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
                 />
               </div>
 
              
 
               <div>
-                <label className="block text-sm font-medium text-gray-500">
+                <label className="block text-sm font-medium text-orange-500">
                   Email Address
                 </label>
                 <input
@@ -82,12 +82,12 @@ const Signup = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+                  className="w-full mt-2 rounded-md bg-orange-200 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-500">
+                <label className="block text-sm font-medium text-orange-500">
                   Password
                 </label>
                 <input
@@ -95,7 +95,7 @@ const Signup = () => {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+                  className="w-full mt-2 rounded-md bg-orange-200 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
                 />
               </div>
 
@@ -103,14 +103,14 @@ const Signup = () => {
 
               <button
                 onClick={handleSignup}
-                className="w-full mt-4 bg-indigo-600 text-white py-2 rounded-md hover:bg-indigo-500"
+                className="w-full mt-4 bg-orange-600 text-white py-2 rounded-md hover:bg-orange-500"
               >
                 Sign Up
               </button>
 
-              <p className="mt-4 text-center text-sm text-gray-500">
+              <p className="mt-4 text-center text-sm text-orange-500">
                 Already have an account?{" "}
-                <Link to="/login" className="text-indigo-600 hover:text-indigo-500">
+                <Link to="/login" className="text-orange-700 font-bold hover:text-orange-500">
                   Log in
                 </Link>
               </p>
@@ -118,14 +118,14 @@ const Signup = () => {
           ) : (
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-500">
+                <label className="block text-sm font-medium text-orange-500">
                   Enter OTP
                 </label>
                 <input
                   type="text"
                   value={otp}
                   onChange={(e) => setOtp(e.target.value)}
-                  className="w-full mt-2 rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
+                  className="w-full mt-2 rounded-md bg-orange-100 px-3 py-1.5 text-gray-900 focus:outline-indigo-600"
                 />
               </div>
 
@@ -133,7 +133,7 @@ const Signup = () => {
 
               <button
                 onClick={handleVerifyOtp}
-                className="w-full mt-4 bg-green-600 text-white py-2 rounded-md hover:bg-green-500"
+                className="w-full mt-4 bg-orange-600 text-white py-2 rounded-md hover:bg-orange-500"
               >
                 Verify OTP
               </button>
