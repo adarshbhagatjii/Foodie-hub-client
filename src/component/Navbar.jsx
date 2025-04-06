@@ -7,41 +7,41 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../utils/cartSlice';
 
 
-const Navbar = ({user, setUser}) => {
+const Navbar = ({ user, setUser }) => {
 
-const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-const [searchQuery, setSearchQuery] = useState('');
- const [showCart, setShowCart] = useState(false)
- const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-const dispatch = useDispatch();
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showCart, setShowCart] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const dispatch = useDispatch();
 
-  
+
   const cartItems = useSelector((store) => store.cart.items);
   const navigate = useNavigate();
-   const handleClearCart = () => {
-          dispatch(clearCart());
-      };
-  
-      const handleIncreaseQuantity = (id) => {
-          dispatch(increaseQuantity(id));
-      };
-  
-      const handleDecreaseQuantity = (id) => {
-          dispatch(decreaseQuantity(id));
-      };
-  
-      const handelProceed = () => {
-          navigate('/placeorder');
-      };
-  
-      const handleRemoveItem = (id) => {
-          dispatch(removeItem(id));
-      };
-  
-      // Calculate total price based on quantity
-      const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
 
-  
+  const handleIncreaseQuantity = (id) => {
+    dispatch(increaseQuantity(id));
+  };
+
+  const handleDecreaseQuantity = (id) => {
+    dispatch(decreaseQuantity(id));
+  };
+
+  const handelProceed = () => {
+    navigate('/placeorder');
+  };
+
+  const handleRemoveItem = (id) => {
+    dispatch(removeItem(id));
+  };
+
+  // Calculate total price based on quantity
+  const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+
 
   const handleLogOut = async () => {
     try {
@@ -57,19 +57,38 @@ const dispatch = useDispatch();
       console.log(err);
     }
   };
-  
+
 
   return (
     <div className="fixed top-0 left-0 right-0 bg-orange-100 drop-shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-        {/* Logo */}
-        <div className="flex items-center space-x-4">
-          <Link to="/" className="text-2xl font-bold text-gray-800 hover:text-orange-600">
-            FoodieHub
+        
+        <div className="flex items-center space-x-3">
+          <Link to="/" className=" ">
+            <svg width="270" height="60" viewBox="0 0 270 60" xmlns="http://www.w3.org/2000/svg" fill="none">
+
+              <rect width="270" height="60" rx="10" fill="#FED7AA" />
+
+
+              <circle cx="30" cy="30" r="12" fill="#fff" />
+              <circle cx="30" cy="30" r="6" fill="#FF7043" />
+
+              <rect x="47" y="16" width="3" height="26" rx="1" fill="#FF7043" />
+
+
+              <ellipse cx="54" cy="23" rx="3" ry="6" fill="#FF7043" />
+              <rect x="53" y="28" width="2" height="12" rx="1" fill="#FF7043" />
+
+
+              <text x="70" y="38" font-family="Verdana" font-size="24" font-weight="bold" fill="#FF7043">Foodie</text>
+              <text x="160" y="38" font-family="Verdana" font-size="24" font-weight="bold" fill="#D97706">Hub</text>
+            </svg>
+
+
           </Link>
         </div>
 
-        {/* Hamburger for mobile */}
+        
         <div className="md:hidden">
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -79,8 +98,8 @@ const dispatch = useDispatch();
           </button>
         </div>
 
-        {/* Search (Desktop only) */}
-        <div className="flex-1 max-w-xl mx-4 hidden md:block">
+       
+       { user && <div className="flex-1 max-w-xl mx-4 hidden md:block">
           <div className="relative">
             <input
               type="text"
@@ -92,8 +111,8 @@ const dispatch = useDispatch();
             <i className="fas fa-search absolute right-3 top-3 text-orange-400"></i>
           </div>
         </div>
-
-        {/* Desktop menu */}
+}
+       
         <div className="hidden md:flex items-center space-x-6">
           {/* User Menu */}
           <div className="relative user-menu">
@@ -107,34 +126,33 @@ const dispatch = useDispatch();
               <i className="fas fa-user"></i>
               <span>Account</span>
               <i
-                className={`fas fa-chevron-down ml-2 transition-transform ${
-                  isUserMenuOpen ? "rotate-180" : ""
-                }`}
+                className={`fas fa-chevron-down ml-2 transition-transform ${isUserMenuOpen ? "rotate-180" : ""
+                  }`}
               ></i>
             </button>
 
             {isUserMenuOpen && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
                 {user ? (
-                    <>
-                  <button
-                    className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
-                    onClick={() => {
-                      handleLogOut();
-                      setIsUserMenuOpen(false);
-                    }}
-                  >
-                    <i className="fas fa-sign-in-alt mr-2"></i> LogOut
-                  </button>
-                  <Link
-                    className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
-                    to="/orderHistory"
-                    onClick={() => setIsUserMenuOpen(false)}
-                  >
-                    <i class="fa-solid fa-clock-rotate-left mr-2"></i> Orders
-                  </Link>
-                   
-                 </>
+                  <>
+                    <button
+                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                      onClick={() => {
+                        handleLogOut();
+                        setIsUserMenuOpen(false);
+                      }}
+                    >
+                      <i className="fas fa-sign-in-alt mr-2"></i> LogOut
+                    </button>
+                    <Link
+                      className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                      to="/orderHistory"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <i class="fa-solid fa-clock-rotate-left mr-2"></i> Orders
+                    </Link>
+
+                  </>
 
                 ) : (
                   <Link
@@ -178,7 +196,7 @@ const dispatch = useDispatch();
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      
       {isMobileMenuOpen && (
         <div className="md:hidden bg-white px-4 pb-4 space-y-4">
           <div className="relative">
@@ -192,7 +210,7 @@ const dispatch = useDispatch();
             <i className="fas fa-search absolute right-3 top-3 text-gray-400"></i>
           </div>
 
-          {/* Account */}
+          
           <div>
             {user ? (
               <button
@@ -223,7 +241,7 @@ const dispatch = useDispatch();
             )}
           </div>
 
-          {/* Cart */}
+          
           {user && (
             <button
               className="flex items-center space-x-2 text-gray-600 hover:text-orange-500"
@@ -244,7 +262,7 @@ const dispatch = useDispatch();
         </div>
       )}
 
-      {/* Cart Dropdown */}
+      
       {showCart && (
         <div className="absolute right-0  w-11/12 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col z-50 max-h-[90vh] overflow-y-auto">
           {/* Cart Header */}
@@ -328,9 +346,9 @@ const dispatch = useDispatch();
         </div>
       )}
     </div>
-  
-  
-  
+
+
+
   );
 
 };

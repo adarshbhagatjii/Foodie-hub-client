@@ -14,18 +14,18 @@ const ForgotPassword = () => {
 
   const navigate = useNavigate();
 
-  // Send OTP to email
+  
   const handleSendOtp = async () => {
     try {
       await axios.post(BASE_URL + "/forgotpassword", { emailId: email }, { withCredentials: true });
-      setStep(2); // Move to OTP step
+      setStep(2); 
       setSuccess("OTP sent to your email.");
     } catch (err) {
       setError(err?.response?.data?.message || "Something went wrong");
     }
   };
 
-  // Verify OTP & Reset Password
+ d
   const handleResetPassword = async () => {
     try {
       await axios.post(BASE_URL + "/resetpassword", { emailId: email, otp, newPassword },{ withCredentials: true });
@@ -78,7 +78,7 @@ const ForgotPassword = () => {
               type="password"
               value={newPassword}
               onChange={(e) => setNewPassword(e.target.value)}
-              className="w-full rounded-md bg-gray-400 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
+              className="w-full rounded-md bg-orange-200 px-3 py-1.5 text-gray-900 focus:outline-orange-600"
             />
 
             <button

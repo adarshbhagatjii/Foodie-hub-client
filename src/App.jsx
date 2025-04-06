@@ -7,8 +7,6 @@ import Signup from './component/Signup'
 import ResaturantMenu from './component/RestaurantMenu'
 import { Provider } from 'react-redux'
 import appStore from './utils/appStore'
-import Cart from './component/Cart'
-import Navbar from './component/Navbar'
 import PlaceOrder from './component/PlaceOrder'
 import ForgotPassword from './component/ForgotPassword'
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -40,7 +38,6 @@ const App = () => {
             <Route path="/login" element={<Login setUser={setUser} user={user} />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />
-            <Route path="/cart" element={<Cart />} />
             <Route path="/orderHistory" element={<OrderHistory />} />
             <Route path="/placeorder" element={<PlaceOrder />} />
             <Route path= "/restaurant/:resid" element= {<ResaturantMenu />} /> 

@@ -8,8 +8,8 @@ import { useDispatch } from 'react-redux';
 const Login = ({setUser, user}) => {
   const dispatch = useDispatch();
 
-  const [email, setEmail] = useState("bhagatadarsh02gmail.com"); 
-  const [password, setPassword] = useState("Piyush@123");
+  const [email, setEmail] = useState("dummy123@gmail.com"); 
+  const [password, setPassword] = useState("Dummy@123");
   const [error, setError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 

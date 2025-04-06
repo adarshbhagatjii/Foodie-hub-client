@@ -72,7 +72,7 @@ const PlaceOrder = () => {
         amount: newPrice,
         currency: "INR",
       }, { withCredentials: true });
-      console.log(data);
+      
   
       //  Configure Razorpay options
       const options = {
@@ -116,15 +116,15 @@ const PlaceOrder = () => {
             
       
             if (verifyRes.data.success) {
-              alert("✅ Payment Successful & Order Placed!");
+              toast.success("✅ Payment Successful & Order Placed!");
               dispatch(clearCart());
               navigate("/");
             } else {
-              alert("❌ Payment Verification Failed!");
+              toast.error("❌ Payment Verification Failed!");
             }
           } catch (error) {
             console.error("Error verifying payment:", error);
-            alert("⚠️ Payment verification error! Please try again.");
+            toast.error("⚠️ Payment verification error! Please try again.");
           }
         },
       

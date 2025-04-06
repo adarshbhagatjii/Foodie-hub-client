@@ -10,16 +10,16 @@ import { BASE_URL } from '../utils/constants';
 import MenuCard from './MenuCard';
 
 
-const Home = ({user, setUser}) => {
+const Home = ({ user, setUser }) => {
     const [listOfRestaurant, setListOfRestaurant] = useState([]);
     const [menulist, setMenulist] = useState({});
-   
-   
+
+
     const navigate = useNavigate();
 
-    
 
-    
+
+
 
 
 
@@ -37,7 +37,7 @@ const Home = ({user, setUser}) => {
             });
 
             const restaurants = Array.isArray(res.data.data) ? res.data.data : [];
-         
+
 
             let allMenuItems = [];
             restaurants.forEach(restaurant => {
@@ -45,7 +45,7 @@ const Home = ({user, setUser}) => {
                     allMenuItems = [...allMenuItems, ...restaurant.menu];
                 }
             });
-            // 🏷️ **Group menu items by category**
+           
             const groupedMenu = allMenuItems.reduce((acc, item) => {
                 if (!acc[item.category]) {
                     acc[item.category] = [];
@@ -54,7 +54,7 @@ const Home = ({user, setUser}) => {
                 return acc;
             }, {});
 
-            // Extract restaurants from "data" property
+            
             setListOfRestaurant(restaurants);
             setMenulist(groupedMenu);
 
@@ -93,15 +93,19 @@ const Home = ({user, setUser}) => {
             </div>
 
 
-            <div className="p-6">
-            <h2 className="text-4xl font-bold text-center text-gray-800 mb-6">Featured Dishes</h2>
+            <div className="p-4 sm:p-6">
+                <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-800 mb-4 sm:mb-6">
+                    Featured Dishes
+                </h2>
+
                 {Object.keys(menulist).length > 0 ? (
                     Object.keys(menulist).map((category) => (
-                        <div key={category} className=" m-5 ">
-                            <h3 className="text-3xl font-semibold text-center text-gray-800 mb-4 border-b-2  pb-2">
+                        <div key={category} className="my-6">
+                            <h3 className="text-2xl sm:text-3xl font-semibold text-center text-gray-800 mb-4 border-b-2 pb-2">
                                 {category}
                             </h3>
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
                                 {menulist[category].map((menu) => (
                                     <MenuCard key={menu._id} menudata={menu} />
                                 ))}
@@ -109,10 +113,11 @@ const Home = ({user, setUser}) => {
                         </div>
                     ))
                 ) : (
-                    <p className="text-center text-gray-500">No menu items available.</p>
+                    <p className="text-center text-gray-500 mt-4">No menu items available.</p>
                 )}
             </div>
-            
+
+
         </div>
 
 
