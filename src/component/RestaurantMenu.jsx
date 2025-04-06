@@ -88,7 +88,7 @@ const RestaurantMenu = () => {
       <div key={category} className="bg-gray-300 shadow-lg rounded-lg mb-4 transition-all duration-300">
         
         <div 
-          className="flex justify-between items-center px-4 sm:px-6 py-4 bg-gray-300 cursor-pointer text-gray-800 rounded-t-lg" 
+          className="flex justify-between items-center px-4 sm:px-6 py-4 bg-orange-200 cursor-pointer text-gray-800 rounded-t-lg" 
           onClick={() => toggleCategory(category)}
         >
           <h2 className="text-lg sm:text-xl font-semibold">
@@ -137,7 +137,7 @@ const RestaurantMenu = () => {
                     </div>
                   ) : (
                     <button
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                      className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
                       onClick={() => handleAddClick(item)}
                     >
                       Add +
