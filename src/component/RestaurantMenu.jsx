@@ -85,7 +85,7 @@ const RestaurantMenu = () => {
     const isOpen = selectedCategory[category];
 
     return (
-      <div key={category} className="bg-gray-300 shadow-lg rounded-lg mb-4 transition-all duration-300">
+      <div key={category} className="bg-orange-100 shadow-lg rounded-lg mb-4 transition-all duration-300">
         
         <div 
           className="flex justify-between items-center px-4 sm:px-6 py-4 bg-orange-200 cursor-pointer text-gray-800 rounded-t-lg" 
