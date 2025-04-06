@@ -198,7 +198,7 @@ const Navbar = ({ user, setUser }) => {
 
       
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white px-4 pb-4 space-y-4">
+        <div className="md:hidden bg-orange-100 px-4 pb-4 space-y-4">
           <div className="relative">
             <input
               type="text"
@@ -273,7 +273,7 @@ const Navbar = ({ user, setUser }) => {
 
       
       {showCart && (
-        <div className="absolute right-0  w-11/12 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col z-50 max-h-[90vh] overflow-y-auto">
+        <div className="absolute right-0  w-11/12 md:w-96 bg-orange-100 shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col z-50 max-h-[90vh] overflow-y-auto">
           {/* Cart Header */}
           <div className="p-6 border-b flex justify-between items-center">
             <h2 className="text-2xl font-bold text-gray-800">Shopping Cart</h2>
