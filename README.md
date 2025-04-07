@@ -1,4 +1,4 @@
-# 🍽️ myRestro - Food Ordering App (Frontend)
+# 🍽️ Foodie Hub - Food Ordering App (Frontend)
 
 A modern and responsive food ordering web app where users can explore restaurants, view detailed menus, add items to their cart, and checkout using Cash on Delivery or Razorpay for online payment.
 
