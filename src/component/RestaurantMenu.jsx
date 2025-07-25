@@ -78,8 +78,8 @@ const RestaurantMenu = () => {
 
     return (
         <div className="p-4 mt-18 sm:p-6 max-w-4xl mx-auto h-screen overflow-y-auto">
-  <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4">{RestaurantName}</h1>
-  <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">Menu Items</h1>
+  <h1 className="text-2xl sm:text-3xl font-bold text-center text-orange-600 mb-4">{RestaurantName}</h1>
+  <h1 className="text-2xl text-orange-600 sm:text-3xl font-bold text-center mb-6">Menu Items</h1>
 
   {categories.map(category => {
     const isOpen = selectedCategory[category];
