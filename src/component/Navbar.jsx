@@ -286,7 +286,7 @@ const Navbar = ({ user, setUser, searchQuery, setSearchQuery }) => {
           <div className="p-6 border-b flex justify-between items-center">
             <h2 className="text-2xl font-bold text-black">Shopping Cart</h2>
 
-            <h2 className="text-2xl font-bold text-gray-800">Food Cart</h2>
+            
    <button
               className="text-black cursor-pointer"
               onClick={() => setShowCart(false)}
