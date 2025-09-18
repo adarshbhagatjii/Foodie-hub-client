@@ -79,13 +79,10 @@ const RestaurantMenu = () => {
 
     return (
         <div className="p-4 mt-18 sm:p-6 max-w-4xl mx-auto h-screen overflow-y-auto">
-<<<<<<< HEAD
   <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4">{RestaurantName}</h1>
   <h1 className="text-2xl sm:text-3xl font-bold text-center  mb-6">Menu Items</h1>
-=======
   <h1 className="text-2xl sm:text-3xl font-bold text-center text-orange-600 mb-4">{RestaurantName}</h1>
   <h1 className="text-2xl text-orange-600 sm:text-3xl font-bold text-center mb-6">Menu Items</h1>
->>>>>>> 3d4a51edc68296ba13e297e030b72a5854fcaf25
 
   {categories.map(category => {
     const isOpen = selectedCategory === category;
@@ -143,11 +140,8 @@ const RestaurantMenu = () => {
                     </div>
                   ) : (
                     <button
-<<<<<<< HEAD
-                      className="bg-orange-300 text-white px-4 py-2 rounded-lg hover:bg-orange-400"
-=======
+
                       className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600"
->>>>>>> 3d4a51edc68296ba13e297e030b72a5854fcaf25
                       onClick={() => handleAddClick(item)}
                     >
                       Add +
