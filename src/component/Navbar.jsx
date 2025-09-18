@@ -140,7 +140,7 @@ const Navbar = ({ user, setUser, searchQuery, setSearchQuery }) => {
             </button>
 
             {isUserMenuOpen && (
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2 z-50">
+              <div className="absolute right-0 mt-2 w-48 bg-orange-100 rounded-lg shadow-lg py-2 z-50">
                 {user ? (
                   <>
                     <button
@@ -347,7 +347,7 @@ const Navbar = ({ user, setUser, searchQuery, setSearchQuery }) => {
 
           {/* Checkout Section */}
           {cartItems?.length !== 0 && (
-            <div className="p-6 mb-4 bg-white">
+            <div className="p-6 mb-4 bg-orange-100">
               <h2 className="text-orange-400 text-xl font-bold">
                 Total: ${totalPrice.toFixed(2)}
               </h2>
