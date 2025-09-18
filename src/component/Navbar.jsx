@@ -284,12 +284,10 @@ const Navbar = ({ user, setUser, searchQuery, setSearchQuery }) => {
         <div className="absolute right-0  w-11/12 md:w-96 bg-orange-100 shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col z-50 max-h-[90vh] overflow-y-auto">
           {/* Cart Header */}
           <div className="p-6 border-b flex justify-between items-center">
-<<<<<<< HEAD
             <h2 className="text-2xl font-bold text-black">Shopping Cart</h2>
-=======
+
             <h2 className="text-2xl font-bold text-gray-800">Food Cart</h2>
->>>>>>> 3d4a51edc68296ba13e297e030b72a5854fcaf25
-            <button
+   <button
               className="text-black cursor-pointer"
               onClick={() => setShowCart(false)}
             >
