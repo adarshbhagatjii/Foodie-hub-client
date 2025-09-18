@@ -3,7 +3,6 @@
 A modern and responsive food ordering web app where users can explore restaurants, view detailed menus, add items to their cart, and checkout using Cash on Delivery or Razorpay for online payment.
 
 🚀 **Live Demo**: [foodie-hub-sigma.vercel.app](https://foodie-hub-sigma.vercel.app)
-<<<<<<< HEAD
 
 ---
 
