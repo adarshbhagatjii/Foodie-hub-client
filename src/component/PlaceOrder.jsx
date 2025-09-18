@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router';
 import { BASE_URL } from '../utils/constants';
 import { clearCart } from '../utils/cartSlice';
 import { toast } from 'react-toastify';
+import { MapPin, ShoppingCart } from "lucide-react";
+
+
 
 const PlaceOrder = () => {
   const cartItems = useSelector((store) => store.cart.items);
@@ -177,97 +180,118 @@ const PlaceOrder = () => {
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-orange-100 text-gray-900 shadow-lg mt-18 rounded-lg mb-3">
-      <h1 className="text-xl text-center font-bold mb-4">Place Your Order</h1>
-
-      <div className="mb-4 gap-2">
-        <h2 className="text-lg text-center font-semibold">Address</h2>
-        <label  className="block text-sm font-medium text-orange-500">
-                  Street
-                </label>
-        <input
-          type="text"
-          placeholder="Street"
-          value={address.street}
-          required
-          onChange={(e) => setAddress({...address, street: e.target.value})}
-          className="block w-full rounded-md border border-orange-900 bg-orange-100 px-3 py-2 text-gray-900 shadow-sm focus:outline-2 focus:outline-orange-600 sm:text-sm"
-        />
-        <label  className="block text-sm font-medium text-orange-500">
-                  City
-                </label>
-        <input
-          type="text"
-          placeholder="City"
-          value={address.city}
-          required
-          onChange={(e) => setAddress({...address, city: e.target.value})}
-          className=" block w-full rounded-md border border-orange-900 bg-orange-100 px-3 py-2 text-gray-900 shadow-sm focus:outline-2 focus:outline-orange-600 sm:text-sm"
-        />
-        <label  className="block text-sm font-medium text-orange-500">
-                  State
-                </label>
-        <input
-          type="text"
-          placeholder="State"
-          value={address.state}
-          required
-          onChange={(e) => setAddress({...address, state: e.target.value})}
-          className="block w-full rounded-md border border-orange-900 bg-orange-100 px-3 py-2 text-gray-900 shadow-sm focus:outline-2 focus:outline-orange-600 sm:text-sm"
-        />
-        <label className="block text-sm font-medium text-orange-500">
-                  PostalCode
-                </label>
-        <input
-          type="text"
-          placeholder="Postal Code"
-          value={address.postalCode}
-          required
-          onChange={(e) => setAddress({...address, postalCode: e.target.value})}
-          className="block w-full rounded-md border border-orange-900 bg-orange-100 px-3 py-2 text-gray-900 shadow-sm focus:outline-2 focus:outline-orange-600 sm:text-sm"
-        />
-        <label className="block text-sm font-medium text-orange-500">
-                  Country
-                </label>
-        <input
-          type="text"
-          placeholder="Country"
-          value={address.country}
-          required
-          onChange={(e) => setAddress({...address, country: e.target.value})}
-          className="block w-full rounded-md border border-orange-900 bg-orange-100 px-3 py-2 text-gray-900 shadow-sm focus:outline-2 focus:outline-orange-600 sm:text-sm"
-        />
-        <button 
-          onClick={fetchLocation} 
-          className="flex w-full justify-center rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600 mt-4">Fetch My Location</button>
+    <div className="max-w-md mx-auto my-24 rounded-xl shadow-lg border border-gray-200 bg-white overflow-hidden">
+      {/* Header */}
+      <div className="bg-gradient-to-r from-orange-500 to-red-500 text-white p-5 flex items-center gap-3">
+        <ShoppingCart className="w-6 h-6" />
+        <div>
+          <h1 className="text-lg font-bold">Complete Your Order</h1>
+          <p className="text-sm text-orange-100">
+            Fill in your details to place your order
+          </p>
+        </div>
       </div>
 
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold">Payment Method</h2>
-        <select
-          value={paymentMethod}
-          onChange={(e) => setPaymentMethod(e.target.value)}
-          className="w-full p-2 text-gray-900 border rounded"
+      {/* Body */}
+      <div className="p-6 space-y-6">
+        {/* Address */}
+        <div>
+          <div className="flex justify-between items-center mb-3">
+            <h2 className="text-md text-black font-semibold">Delivery Address</h2>
+            <button
+              onClick={fetchLocation}
+              className="flex items-center gap-1 px-3 py-1 border border-orange-400 bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 rounded-md  transition text-sm text-white "
+            >
+              <MapPin className="w-4 h-4" /> Use Location
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            <input
+              type="text"
+              placeholder="Street Address"
+              value={address.street}
+              onChange={(e) =>
+                setAddress({ ...address, street: e.target.value })
+              }
+              className="w-full text-black rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-orange-500  outline-none"
+            />
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="text"
+                placeholder="City"
+                value={address.city}
+                onChange={(e) =>
+                  setAddress({ ...address, city: e.target.value })
+                }
+                className="w-full text-black rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+              <input
+                type="text"
+                placeholder="State"
+                value={address.state}
+                onChange={(e) =>
+                  setAddress({ ...address, state: e.target.value })
+                }
+                className="w-full text-black rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <input
+                type="text"
+                placeholder="Postal Code"
+                value={address.postalCode}
+                onChange={(e) =>
+                  setAddress({ ...address, postalCode: e.target.value })
+                }
+                className="w-full text-black rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+              <input
+                type="text"
+                placeholder="Country"
+                value={address.country}
+                onChange={(e) =>
+                  setAddress({ ...address, country: e.target.value })
+                }
+                className="w-full text-black rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-orange-500 outline-none"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Payment */}
+        <div>
+          <h2 className="text-md text-black font-semibold mb-2">Payment Method</h2>
+          <select
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            className="w-full text-black rounded-md border border-gray-300 px-3 py-2 focus:ring-2 focus:ring-orange-500 outline-none"
+          >
+            <option className="bg-orange-300 hover:bg-orange-600" value="">Choose payment method</option>
+            <option className="bg-orange-300 hover:bg-orange-600" value="COD">Cash on Delivery</option>
+            <option className="bg-orange-300 hover:bg-orange-600" value="Card">Online Payment</option>
+          </select>
+        </div>
+        
+
+        {/* Total */}
+        <div className="bg-orange-50 border border-orange-200 rounded-md p-4">
+          <h2 className="text-md font-semibold text-black">Total Amount</h2>
+          <p className="text-sm text-black">Including taxes and delivery</p>
+          <p className="text-2xl font-bold text-orange-600">
+            ${newPrice}
+          </p>
+        </div>
+
+        {/* Submit */}
+        <button
+          onClick={handlePlaceOrder}
+          className="w-full  text-white font-semibold py-3 rounded-md bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90  transition"
         >
-          <option value="COD">Cash on Delivery</option>
-          <option value="Card">Online Payment</option>
-          
-        </select>
+          Place Order - ${newPrice}
+        </button>
       </div>
-
-      <div className="mb-4">
-        <h2 className="text-lg font-semibold">Total Price</h2>
-        <p className="text-green-600 font-bold">${newPrice}</p>
       </div>
-
-      <button
-        className="flex w-full justify-center rounded-md bg-orange-500 px-3 py-1.5 text-sm font-semibold text-white shadow-xs hover:bg-orange-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600"
-        onClick={handlePlaceOrder}
-      >
-        Place Order
-      </button>
-      
-    </div>
   );
 };
 

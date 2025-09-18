@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { clearCart, removeItem, increaseQuantity, decreaseQuantity } from '../utils/cartSlice';
 
 
-const Navbar = ({ user, setUser }) => {
+const Navbar = ({ user, setUser, searchQuery, setSearchQuery }) => {
 
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  
   const [showCart, setShowCart] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const dispatch = useDispatch();
@@ -31,7 +31,15 @@ const Navbar = ({ user, setUser }) => {
   };
 
   const handelProceed = () => {
-    navigate('/placeorder');
+    const token = localStorage.getItem("token");
+
+        if (!token) {
+            navigate("/login");
+            return;
+        }else {
+          navigate('/placeorder');
+        }
+    
   };
 
   const handleRemoveItem = (id) => {
@@ -99,7 +107,7 @@ const Navbar = ({ user, setUser }) => {
         </div>
 
        
-       { user && <div className="flex-1 max-w-xl mx-4 hidden md:block">
+        <div className="flex-1 max-w-xl mx-4 hidden md:block">
           <div className="relative">
             <input
               type="text"
@@ -111,13 +119,13 @@ const Navbar = ({ user, setUser }) => {
             <i className="fas fa-search absolute right-3 top-3 text-orange-400"></i>
           </div>
         </div>
-}
+
        
         <div className="hidden md:flex items-center space-x-6">
           {/* User Menu */}
           <div className="relative user-menu">
             <button
-              className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 cursor-pointer"
+              className="flex items-center space-x-2 text-black hover:text-orange-500 cursor-pointer"
               onClick={(e) => {
                 e.stopPropagation();
                 setIsUserMenuOpen(!isUserMenuOpen);
@@ -136,7 +144,7 @@ const Navbar = ({ user, setUser }) => {
                 {user ? (
                   <>
                     <button
-                      className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                      className="w-full text-left px-4 py-2 text-black hover:bg-orange-200 whitespace-nowrap"
                       onClick={() => {
                         handleLogOut();
                         setIsUserMenuOpen(false);
@@ -145,7 +153,7 @@ const Navbar = ({ user, setUser }) => {
                       <i className="fas fa-sign-in-alt mr-2"></i> LogOut
                     </button>
                     <Link
-                      className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                      className="w-full block px-4 py-2 text-black hover:bg-orange-200 whitespace-nowrap"
                       to="/orderHistory"
                       onClick={() => setIsUserMenuOpen(false)}
                     >
@@ -156,7 +164,7 @@ const Navbar = ({ user, setUser }) => {
 
                 ) : (
                   <Link
-                    className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                    className="w-full block px-4 py-2 text-black  hover:bg-orange-200 whitespace-nowrap"
                     to="/login"
                     onClick={() => setIsUserMenuOpen(false)}
                   >
@@ -167,7 +175,7 @@ const Navbar = ({ user, setUser }) => {
                 {user?.role === "admin" && (
                   <Link
                     to="/admin/dashboard"
-                    className="block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+                    className="block px-4 py-2 text-black hover:bg-orange-20 whitespace-nowrap"
                   >
                     <i className="fa-solid fa-gauge mr-2"></i> Admin Dashboard
                   </Link>
@@ -177,10 +185,10 @@ const Navbar = ({ user, setUser }) => {
           </div>
 
           {/* Cart */}
-          {user && (
+          
             <div className="relative user-menu">
               <button
-                className="flex items-center space-x-2 text-gray-600 hover:text-orange-500 cursor-pointer relative"
+                className="flex items-center space-x-2 text-black  hover:text-orange-500 cursor-pointer relative"
                 onClick={() => setShowCart(!showCart)}
               >
                 <i className="fas fa-shopping-cart"></i>
@@ -192,7 +200,7 @@ const Navbar = ({ user, setUser }) => {
                 )}
               </button>
             </div>
-          )}
+          
         </div>
       </div>
 
@@ -202,12 +210,12 @@ const Navbar = ({ user, setUser }) => {
           <div className="relative">
             <input
               type="text"
-              className="w-full px-4 py-2 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
+              className="w-full px-4 py-2 rounded-lg border border-orange-300 focus:outline-none focus:ring-2 focus:ring-orange-500"
               placeholder="Search..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <i className="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+            <i className="fas fa-search absolute right-3 top-3 text-black"></i>
           </div>
 
           
@@ -215,7 +223,7 @@ const Navbar = ({ user, setUser }) => {
             {user ? (
               <>
               <button
-                className="w-full text-left px-4 py-2 text-gray-700 hover:bg-orange-50"
+                className="w-full text-left px-4 py-2 text-black hover:bg-orange-200"
                 onClick={() => {
                   handleLogOut();
                   setIsMobileMenuOpen(false);
@@ -224,7 +232,7 @@ const Navbar = ({ user, setUser }) => {
                 <i className="fas fa-sign-in-alt mr-2"></i> LogOut
               </button>
               <Link
-              className="w-full block px-4 py-2 text-gray-700 hover:bg-orange-50 whitespace-nowrap"
+              className="w-full block px-4 py-2 text-black hover:bg-orange-200 whitespace-nowrap"
               to="/orderHistory"
               onClick={() => setIsUserMenuOpen(false)}
             >
@@ -233,7 +241,7 @@ const Navbar = ({ user, setUser }) => {
             </>
             ) : (
               <Link
-                className="block px-4 py-2 text-gray-700 hover:bg-orange-50"
+                className="block px-4 py-2 text-black hover:bg-orange-200"
                 to="/login"
                 onClick={() => setIsMobileMenuOpen(false)}
               >
@@ -243,7 +251,7 @@ const Navbar = ({ user, setUser }) => {
             {user?.role === "admin" && (
               <Link
                 to="/admin/dashboard"
-                className="block px-4 py-2 text-gray-700 hover:bg-orange-50"
+                className="block px-4 py-2 text-black hover:bg-orange-200"
               >
                 <i className="fa-solid fa-gauge mr-2"></i> Admin Dashboard
               </Link>
@@ -251,9 +259,9 @@ const Navbar = ({ user, setUser }) => {
           </div>
 
           
-          {user && (
+           
             <button
-              className="flex items-center space-x-2 text-gray-600 hover:text-orange-500"
+              className="flex items-center space-x-2 text-black hover:text-orange-500"
               onClick={() => {
                 setShowCart(!showCart);
                 setIsMobileMenuOpen(false);
@@ -267,7 +275,7 @@ const Navbar = ({ user, setUser }) => {
                 </span>
               )}
             </button>
-          )}
+          
         </div>
       )}
 
@@ -276,9 +284,9 @@ const Navbar = ({ user, setUser }) => {
         <div className="absolute right-0  w-11/12 md:w-96 bg-white shadow-lg transform transition-transform duration-300 ease-in-out flex flex-col z-50 max-h-[90vh] overflow-y-auto">
           {/* Cart Header */}
           <div className="p-6 border-b flex justify-between items-center">
-            <h2 className="text-2xl font-bold text-gray-800">Shopping Cart</h2>
+            <h2 className="text-2xl font-bold text-black">Shopping Cart</h2>
             <button
-              className="text-gray-500 hover:text-gray-700"
+              className="text-black cursor-pointer"
               onClick={() => setShowCart(false)}
             >
               <i className="fas fa-times"></i>
@@ -288,35 +296,35 @@ const Navbar = ({ user, setUser }) => {
           {/* Cart Items */}
           <div className="flex-1 overflow-y-auto p-6">
             {cartItems.length === 0 ? (
-              <div className="text-center text-gray-500 mt-8">
+              <div className="text-center text-black mt-8">
                 Your cart is empty
               </div>
             ) : (
               <div className="flex flex-col space-y-6">
                 {cartItems.map((item) => (
-                  <div key={item._id} className="flex items-center space-x-4">
+                  <div key={item._id} className="flex items-center space-x-4 p-3 rounded-2xl hover:bg-orange-100">
                     <img
                       src={item.imageUrl}
                       alt={item.name}
                       className="w-20 h-20 rounded-lg object-cover"
                     />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-orange-500">
+                      <h3 className="font-semibold text-black">
                         {item.name}
                       </h3>
-                      <p className="text-orange-500">${item.price}</p>
+                      <p className="text-black">${item.price}</p>
                       <div className="flex items-center space-x-2 mt-2">
                         <button
-                          className="w-8 h-8 flex items-center justify-center bg-gray-100 text-orange-500 hover:bg-gray-200 cursor-pointer"
+                          className="w-8 h-8 flex items-center justify-center bg-orange-100 text-black hover:bg-orange-200 cursor-pointer"
                           onClick={() => handleDecreaseQuantity(item._id)}
                         >
                           <i className="fas fa-minus"></i>
                         </button>
-                        <span className="text-orange-500 w-8 text-center">
+                        <span className="text-black w-8 text-center">
                           {item.quantity}
                         </span>
                         <button
-                          className="w-8 h-8 flex items-center justify-center bg-gray-100 text-orange-500 hover:bg-gray-200 cursor-pointer"
+                          className="w-8 h-8 flex items-center justify-center bg-orange-100 text-black hover:bg-orange-200 cursor-pointer"
                           onClick={() => handleIncreaseQuantity(item._id)}
                         >
                           <i className="fas fa-plus"></i>
@@ -324,7 +332,7 @@ const Navbar = ({ user, setUser }) => {
                       </div>
                     </div>
                     <button
-                      className="text-orange-500 hover:text-red-500 cursor-pointer"
+                      className="text-red-600 cursor-pointer"
                       onClick={() => handleRemoveItem(item._id)}
                     >
                       <i className="fas fa-trash"></i>
@@ -338,11 +346,11 @@ const Navbar = ({ user, setUser }) => {
           {/* Checkout Section */}
           {cartItems?.length !== 0 && (
             <div className="p-6 mb-4 bg-white">
-              <h2 className="text-orange-500 text-xl font-bold">
+              <h2 className="text-orange-400 text-xl font-bold">
                 Total: ${totalPrice.toFixed(2)}
               </h2>
               <button
-                className="w-full bg-orange-500 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors"
+                className="w-full bg-gradient-to-r from-orange-500 to-red-500 hover:opacity-90 text-white py-3 rounded-lg hover:bg-orange-600 transition-colors"
                 onClick={() => {
                   setShowCart(!showCart);
                   handelProceed();

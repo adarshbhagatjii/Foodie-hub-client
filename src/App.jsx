@@ -16,7 +16,8 @@ import OrderHistory from './component/OrderHistory'
 const App = () => {
 
   const [user, setUser]= useState(null);
- ;
+  const [searchQuery, setSearchQuery] = useState('');
+ 
 
   useEffect (()=>{
     const storedUser = localStorage.getItem('user')
@@ -33,8 +34,8 @@ const App = () => {
       <BrowserRouter basename='/'>
      
         <Routes>
-          <Route path="/" element={<Body user={user} setUser={setUser} />} >
-            <Route index  element={<Home  />} />
+          <Route path="/" element={<Body user={user} setUser={setUser} searchQuery={searchQuery} setSearchQuery={setSearchQuery}/>} >
+            <Route index  element={<Home  searchQuery={searchQuery}  />} />
             <Route path="/login" element={<Login setUser={setUser} user={user} />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/forgotPassword" element={<ForgotPassword />} />

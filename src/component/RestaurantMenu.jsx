@@ -4,12 +4,13 @@ import { BASE_URL } from '../utils/constants';
 import { useParams } from 'react-router';
 import { useDispatch, useSelector } from 'react-redux';
 import { addItem, decreaseQuantity, increaseQuantity } from '../utils/cartSlice';
+import { toast } from 'react-toastify';
 
 
 const RestaurantMenu = () => {
     const [menu, setMenu] = useState([]);
     const [categories, setCategories] = useState([]);
-    const [selectedCategory, setSelectedCategory] = useState({});
+    const [selectedCategory, setSelectedCategory] = useState(null);
     const [RestaurantName, setRestaurantName] = useState("");
     const cartItems = useSelector(state => state.cart.items);
     
@@ -19,6 +20,7 @@ const RestaurantMenu = () => {
 
     const handleAddClick= (item) => {
         dispatch(addItem(item));
+         toast.success('Added to cart!!');
     };
     const handleIncrease = (itemId) => {
         dispatch(increaseQuantity(itemId));
@@ -64,10 +66,9 @@ const RestaurantMenu = () => {
 
     // Toggle category collapse state
     const toggleCategory = (category) => {
-        setSelectedCategory(prevState => ({
-            ...prevState,
-            [category]: !prevState[category]
-        }));
+        setSelectedCategory(prev =>
+    prev === category ? null : category
+  );
     };
 
     const getItemQuantity = (itemId) => {
@@ -79,16 +80,16 @@ const RestaurantMenu = () => {
     return (
         <div className="p-4 mt-18 sm:p-6 max-w-4xl mx-auto h-screen overflow-y-auto">
   <h1 className="text-2xl sm:text-3xl font-bold text-center mb-4">{RestaurantName}</h1>
-  <h1 className="text-2xl sm:text-3xl font-bold text-center mb-6">Menu Items</h1>
+  <h1 className="text-2xl sm:text-3xl font-bold text-center  mb-6">Menu Items</h1>
 
   {categories.map(category => {
-    const isOpen = selectedCategory[category];
+    const isOpen = selectedCategory === category;
 
     return (
-      <div key={category} className="bg-gray-300 shadow-lg rounded-lg mb-4 transition-all duration-300">
+      <div key={category} className="bg-orange-100 shadow-lg rounded-lg mb-4 transition-all duration-300">
         
         <div 
-          className="flex justify-between items-center px-4 sm:px-6 py-4 bg-gray-300 cursor-pointer text-gray-800 rounded-t-lg" 
+          className="flex justify-between items-center px-4 sm:px-6 py-4 bg-orange-200 cursor-pointer text-gray-800 rounded-t-lg" 
           onClick={() => toggleCategory(category)}
         >
           <h2 className="text-lg sm:text-xl font-semibold">
@@ -137,7 +138,7 @@ const RestaurantMenu = () => {
                     </div>
                   ) : (
                     <button
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                      className="bg-orange-300 text-white px-4 py-2 rounded-lg hover:bg-orange-400"
                       onClick={() => handleAddClick(item)}
                     >
                       Add +

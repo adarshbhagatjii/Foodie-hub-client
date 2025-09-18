@@ -2,7 +2,7 @@ import React from 'react';
 
 const RestaurantCard = ({ resdata }) => {
   return (
-    <div className="bg-white flex flex-col justify-center items-center rounded-lg shadow-2xl overflow-hidden text-gray-800 ">
+    <div className="bg-white flex flex-col justify-center items-center rounded-lg shadow-2xl  shadow-orange-200 overflow-hidden text-gray-800 ">
       
       <div className="w-full h-48 object-cover">
         <img
